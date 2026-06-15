@@ -49,6 +49,21 @@ The skill (`commands/draw.md`) tells Claude to run `draw_sketch.py`, wait for it
 2. **PostScript + PIL** — exports canvas as EPS, converts via PIL + Ghostscript
 3. **CLI fallback** — uses `convert` (ImageMagick) or `gs` (Ghostscript)
 
+## /screenshot
+
+Capture a region of your screen, annotate it, and send it to Claude.
+
+```
+/screenshot
+```
+
+1. A fullscreen overlay shows your desktop — drag to select a region
+2. The cropped region opens in an annotation window (same tools as `/draw`)
+3. Click **Done** — Claude sees the annotated screenshot and asks what to do
+
+**Extra requirement:** `pip install pillow` (required, not optional)
+**Linux fallback:** `sudo apt install scrot` (only if Pillow ImageGrab fails)
+
 ## License
 
 MIT
