@@ -1,69 +1,34 @@
-# claude-draw-skill
+# claudecode-draw
 
-A `/draw` slash command for [Claude Code](https://claude.ai/code) that opens a sketchpad window, lets you draw, and loads the result directly into the conversation.
+A Claude Code plugin that opens a sketchpad canvas so you can draw, annotate, or diagram — then loads your sketch directly into the conversation.
 
-![demo](demo.png)
+## Install via Claude Code
 
-## Features
-
-- Color picker, adjustable brush size, eraser, clear button
-- Cross-platform: Linux, macOS, Windows
-- Three PNG export methods (Pillow → PostScript+PIL → CLI fallback)
-- No external dependencies required (Pillow optional but recommended)
-
-## Prerequisites
-
-| Requirement | Notes |
-|---|---|
-| Python 3 + tkinter | Usually bundled with Python. On Ubuntu: `sudo apt install python3-tk` |
-| Pillow (recommended) | `pip install pillow` — best PNG quality, no screen capture needed |
-| Display / GUI | Needed to show the window. Works on desktop Linux, macOS, Windows. On headless Linux: requires X11 forwarding (`ssh -X`) or a running display. |
-
-## Install
-
-```bash
-git clone https://github.com/yancx1998/claude-draw-skill
-cd claude-draw-skill
-bash install.sh
+```
+/plugin install claudecode-draw@claude-plugins-official
 ```
 
-That copies two files:
-- `~/.claude/draw_sketch.py` — the sketchpad app
-- `~/.claude/commands/draw.md` — the Claude Code slash command
+Or browse for it in `/plugin > Discover`.
+
+## Manual install
+
+```bash
+git clone https://github.com/yancx1998/claudecode-draw
+mkdir -p ~/.claude/commands
+cp claudecode-draw/commands/draw.md ~/.claude/commands/draw.md
+```
+
+The Python sketchpad script is self-bootstrapping — it will be written to `~/.claude/draw_sketch.py` automatically on first use.
 
 ## Usage
 
-In Claude Code, type:
+Type `/draw` in Claude Code. A canvas opens — draw freely, pick colors, adjust brush size. Click **Done** when finished; the sketch loads into the conversation automatically.
 
-```
-/draw
-```
+## Requirements
 
-A sketchpad window opens. Draw, then click **Done**. Claude sees the image and asks what to do with it.
+- Python 3 with tkinter (standard library)
+- Optional: `pip install pillow` for better PNG export
 
-## How it works
+## Linux
 
-The skill (`commands/draw.md`) tells Claude to run `draw_sketch.py`, wait for it to exit, then read and display the saved PNG. PNG export priority:
-
-1. **Pillow ImageDraw** — draws to both tkinter canvas and a PIL image in parallel; saves directly (no screen capture, works everywhere)
-2. **PostScript + PIL** — exports canvas as EPS, converts via PIL + Ghostscript
-3. **CLI fallback** — uses `convert` (ImageMagick) or `gs` (Ghostscript)
-
-## /screenshot
-
-Capture a region of your screen, annotate it, and send it to Claude.
-
-```
-/screenshot
-```
-
-1. A fullscreen overlay shows your desktop — drag to select a region
-2. The cropped region opens in an annotation window (same tools as `/draw`)
-3. Click **Done** — Claude sees the annotated screenshot and asks what to do
-
-**Extra requirement:** `pip install pillow` (required, not optional)
-**Linux fallback:** `sudo apt install scrot` (only if Pillow ImageGrab fails)
-
-## License
-
-MIT
+The script auto-sets `DISPLAY=:0` if running in an SSH session with a physical display available.

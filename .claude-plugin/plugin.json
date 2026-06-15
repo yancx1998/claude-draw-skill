@@ -1,0 +1,8 @@
+{
+  "name": "claudecode-draw",
+  "description": "Open a sketchpad canvas, draw or annotate freehand, and load your sketch directly into Claude Code.",
+  "author": {
+    "name": "yancx1998",
+    "url": "https://github.com/yancx1998"
+  }
+}
