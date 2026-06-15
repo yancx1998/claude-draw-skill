@@ -1,8 +1,14 @@
 {
   "name": "claudecode-draw",
   "description": "Open a sketchpad canvas, draw or annotate freehand, and load your sketch directly into Claude Code.",
+  "version": "1.0.0",
   "author": {
     "name": "yancx1998",
-    "url": "https://github.com/yancx1998"
-  }
+    "email": "ycx2645597979@gmail.com"
+  },
+  "homepage": "https://github.com/yancx1998/claudecode-draw",
+  "repository": "https://github.com/yancx1998/claudecode-draw",
+  "license": "MIT",
+  "category": "productivity",
+  "keywords": ["drawing", "sketch", "annotation", "visual", "canvas"]
 }
